@@ -44,7 +44,7 @@ instruction = """
 
 # 用户输入
 input_text = """
-有没有便宜的套餐
+有没有100块以下的套餐
 """
 
 # 约定输出格式
@@ -69,15 +69,39 @@ output_format = """
 
 # 例子让输出更稳定
 examples = """
-便宜的套餐：{"sort":{"ordering"="ascend","value"="price"}}
-有没有不限流量的：{"data":{"operator":"==","value":"无上限"}}
-流量大的：{"sort":{"ordering"="descend","value"="data"}}
-100G以上流量的套餐最便宜的是哪个：{"sort":{"ordering"="ascend","value"="price"},"data":{"operator":">=","value":100}}
-月费不超过200的：{"price":{"operator":"<=","value":200}}
-就要月费180那个套餐：{"price":{"operator":"==","value":180}}
-经济套餐：{"name":"经济套餐"}
+客服：有什么可以帮您
+用户：100G套餐有什么
+
+{"data":{"operator":">=","value":100}}
+
+客服：有什么可以帮您
+用户：100G套餐有什么
+客服：我们现在有无限套餐，不限流量，月费300元
+用户：太贵了，有200元以内的不
+
+{"data":{"operator":">=","value":100},"price":{"operator":"<=","value":200}}
+
+客服：有什么可以帮您
+用户：便宜的套餐有什么
+客服：我们现在有经济套餐，每月50元，10G流量
+用户：100G以上的有什么
+
+{"data":{"operator":">=","value":100},"sort":{"ordering"="ascend","value"="price"}}
+
+客服：有什么可以帮您
+用户：100G以上的套餐有什么
+客服：我们现在有畅游套餐，流量100G，月费180元
+用户：流量最多的呢
+
+{"sort":{"ordering"="descend","value"="data"},"data":{"operator":">=","value":100}}
 """
 
+context = f"""
+客服：有什么可以帮您
+用户：有什么100G以上的套餐推荐
+客服：我们有畅游套餐和无限套餐，您有什么价格倾向吗
+用户：{input_text}
+"""
 
 # prompt 模板
 prompt = f"""
@@ -87,6 +111,8 @@ prompt = f"""
 
 例如：
 {examples}
+
+{context}
 
 用户输入:
 {input_text}
