@@ -10,9 +10,10 @@
 ###########################################
 
 
-from dis import Instruction
 import os
+from urllib import response
 import openai
+import json
 # 加载 .env 到环境变量
 from dotenv import load_dotenv, find_dotenv
 _ = load_dotenv(find_dotenv())
@@ -21,20 +22,6 @@ _ = load_dotenv(find_dotenv())
 openai.api_key = os.getenv('OPENAI_API_KEY') # 设置 OpenAI 的 key
 # openai.api_base = os.getenv('OPENAI_API_BASE') # 指定代理地址
 
-def get_chat_completion(prompt, model = "gpt-3.5-turbo"):
-    messages = [{
-        "role": "user",
-        "content": prompt
-    }]
-
-    response = openai.ChatCompletion.create(
-        model = model,
-        messages = messages,
-        temperature = 0,
-    )
-    return response.choices[0].message["content"]
-
-## ================== 自己实现一个NLU（语义理解）模块 begin ================== ##
 # 任务描述
 instruction = """
 你的任务是识别用户对手机流量套餐产品的选择条件。
@@ -65,62 +52,161 @@ output_format = """
 (2) 结构体中以"ordering"="ascend"表示按升序排序，以"value"字段存储待排序的字段
 
 输出中只包含用户提及的字段，不要猜测任何用户未直接提及的字段，不输出值为null的字段。
+DO NOT OUTPUT NULL-VALUED FIELD! 确保输出能被json.loads加载。
 """
 
 # 例子让输出更稳定
 examples = """
-客服：有什么可以帮您
-用户：100G套餐有什么
-
-{"data":{"operator":">=","value":100}}
-
-客服：有什么可以帮您
-用户：100G套餐有什么
-客服：我们现在有无限套餐，不限流量，月费300元
-用户：太贵了，有200元以内的不
-
-{"data":{"operator":">=","value":100},"price":{"operator":"<=","value":200}}
-
-客服：有什么可以帮您
-用户：便宜的套餐有什么
-客服：我们现在有经济套餐，每月50元，10G流量
-用户：100G以上的有什么
-
-{"data":{"operator":">=","value":100},"sort":{"ordering"="ascend","value"="price"}}
-
-客服：有什么可以帮您
-用户：100G以上的套餐有什么
-客服：我们现在有畅游套餐，流量100G，月费180元
-用户：流量最多的呢
-
-{"sort":{"ordering"="descend","value"="data"},"data":{"operator":">=","value":100}}
+便宜的套餐：{"sort":{"ordering"="ascend","value"="price"}}
+有没有不限流量的：{"data":{"operator":"==","value":"无上限"}}
+流量大的：{"sort":{"ordering"="descend","value"="data"}}
+100G以上流量的套餐最便宜的是哪个：{"sort":{"ordering"="ascend","value"="price"},"data":{"operator":">=","value":100}}
+月费不超过200的：{"price":{"operator":"<=","value":200}}
+就要月费180那个套餐：{"price":{"operator":"==","value":180}}
+经济套餐：{"name":"经济套餐"}
 """
 
-context = f"""
-客服：有什么可以帮您
-用户：有什么100G以上的套餐推荐
-客服：我们有畅游套餐和无限套餐，您有什么价格倾向吗
-用户：{input_text}
-"""
+class NLU:
+    def __init__(self) -> None:
+        self.prompt_template = f"{instruction}\n\n{output_format}\n\n例如:{examples}\n\n用户输入:\n __INPUT__"
 
-# prompt 模板
-prompt = f"""
-{instruction}
+    def _get_chat_completion(self, prompt, model = "gpt-3.5-turbo"):
+        messages = [{
+            "role": "user",
+            "content": prompt
+        }]
 
-{output_format}
+        response = openai.ChatCompletion.create(
+            model = model,
+            messages = messages,
+            temperature = 0,
+        )
+        semantics = json.loads(response.choices[0].message["content"])
+        return {k: v for k, v in semantics.items() if v}
 
-例如：
-{examples}
+    def parse(self, user_input):
+        prompt = self.prompt_template.replace("__INPUT__", user_input)
+        return self._get_chat_completion(prompt)
 
-{context}
+class DST:
+    def __init__(self) -> None:
+        pass
 
-用户输入:
-{input_text}
+    def update(self, state, nlu_semantics):
+        print("state before: ", state)
+        if "name" in nlu_semantics:
+            state.clear()
+        if "sort" in nlu_semantics:
+            slot = nlu_semantics["sort"]["value"]
+            if slot in state and state[slot]["operator"] == "==":
+                del state[slot]
+        
+        for k, v in nlu_semantics.items():
+            state[k] = v
+            print("state after: ", state)
 
-""" 
+        return state
 
-## ================== 自己实现一个NLU（语义理解）模块 end ================== ##
+class MockedDB:
+    def __init__(self) -> None:
+        self.data = [
+            {"name": "经济套餐", "price": 50, "data": 10, "requirement": None},
+            {"name": "畅游套餐", "price": 180, "data": 100, "requirement": None},
+            {"name": "无限套餐", "price": 300, "data": 1000, "requirement": None},
+            {"name": "校园套餐", "price": 150, "data": 200, "requirement": "在校生"},
+        ]
+
+    def retrieve(self, **kwargs):
+        records = []
+        for r in self.data:
+            select = True
+            if r["requirement"]:
+                if "status" not in kwargs or kwargs["status"] != r["requirement"]:
+                    continue
+            for k, v in kwargs.items():
+                if k == "sort":
+                    continue
+                if k == "data" and v["value"] == "无上限":
+                    if r[k] != 1000:
+                        select = False
+                        break
+                if "operator" in v:
+                    if not eval(str(r[k])+v["operator"]+str(v["value"])):
+                        select = False
+                        break
+                elif str(r[k]) != str(v):
+                    select = False
+                    break
+            if select:
+                records.append(r)
+        if len(records) <= 1:
+            return records
+        key = "price"
+        reverse = False
+        if "sort" in kwargs:
+            key = kwargs["sort"]["value"]
+            reverse = kwargs["sort"]["ordering"] == "descend"
+        return sorted(records, key=lambda x: x[key], reverse=reverse)
+
+class DialogManager:
+    def __init__(self, prompt_templates) -> None:
+        self.state = {}
+        self.session = [
+            {
+                "role": "system",
+                "content": "你是一个手机流量套餐的客服代表，你叫小瓜。可以帮助用户选择最合适的流量套餐产品。"
+            }
+        ]
+        self.nlu = NLU()
+        self.dst = DST()
+        self.db = MockedDB()
+        self.prompt_templates = prompt_templates
+
+    def _wrap(self, user_input, records):
+        if records:
+            prompt = self.prompt_templates["recommand"].replace(
+                "__INPUT__", user_input)
+            r = records[0]
+            for k, v in r.items():
+                prompt = prompt.replace(f"__{k.upper()}__", str(v))
+        else:
+            prompt = self.prompt_templates["not_found"].replace(
+                "__INPUT__", user_input)
+            for k, v in self.state.items():
+                if "operator" in v:
+                    prompt = prompt.replace(
+                        f"__{k.upper()}__", v["operator"]+str(v["value"]))
+                else:
+                    prompt = prompt.replace(f"__{k.upper()}__", str(v))
+        return prompt
+
+    def run(self, user_input):
+        # 调用NLU获得语义解析
+        semantics = self.nlu.parse(user_input)
+        print("===semantics===")
+        print(semantics)
+
+        # 调用DST更新多轮状态
+        self.state = self.dst.update(self.state, semantics)
+        print("===state===")
+        print(self.state)
+
+        # 根据状态检索DB，获得满足条件的候选
+        records = self.db.retrieve(**self.state)
+
+        # 拼装prompt调用chatgpt
+        prompt_for_chatgpt = self._wrap(user_input, records)
+        print("===gpt-prompt===")
+        print(prompt_for_chatgpt)
+
 
 if __name__ == "__main__":
-    response = get_chat_completion(prompt)
+    prompt_templates = {
+        "recommand": "用户说：__INPUT__ \n\n向用户介绍如下产品：__NAME__，月费__PRICE__元，每月流量__DATA__G。",
+        "not_found": "用户说：__INPUT__ \n\n没有找到满足__PRICE__元价位__DATA__G流量的产品，询问用户是否有其他选择倾向。"
+    }
+
+    dm = DialogManager(prompt_templates)
+    response = dm.run("流量大的")
+    print("===response===")
     print(response)
