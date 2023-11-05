@@ -14,6 +14,7 @@ import os
 from urllib import response
 import openai
 import json
+import copy
 # 加载 .env 到环境变量
 from dotenv import load_dotenv, find_dotenv
 _ = load_dotenv(find_dotenv())
@@ -168,6 +169,7 @@ class DialogManager:
                 "__INPUT__", user_input)
             r = records[0]
             for k, v in r.items():
+                print(k, v)
                 prompt = prompt.replace(f"__{k.upper()}__", str(v))
         else:
             prompt = self.prompt_templates["not_found"].replace(
@@ -179,7 +181,18 @@ class DialogManager:
                 else:
                     prompt = prompt.replace(f"__{k.upper()}__", str(v))
         return prompt
-
+    
+    def _call_chatgpt(self, prompt, model="gpt-3.5-turbo"):
+        session = copy.deepcopy(self.session)
+        session.append({"role": "user", "content": prompt})
+        print("session: ", session)
+        response = openai.ChatCompletion.create(
+            model=model,
+            messages=session,
+            temperature=0,
+        )
+        return response.choices[0].message["content"]
+    
     def run(self, user_input):
         # 调用NLU获得语义解析
         semantics = self.nlu.parse(user_input)
@@ -193,11 +206,21 @@ class DialogManager:
 
         # 根据状态检索DB，获得满足条件的候选
         records = self.db.retrieve(**self.state)
+        print("===records===")
+        print(records)
 
         # 拼装prompt调用chatgpt
         prompt_for_chatgpt = self._wrap(user_input, records)
         print("===gpt-prompt===")
         print(prompt_for_chatgpt)
+        
+        # 调用chatgpt获得回复
+        response = self._call_chatgpt(prompt_for_chatgpt)
+
+        # 将当前用户输入和系统回复维护入chatgpt的session
+        self.session.append({"role": "user", "content": user_input})
+        self.session.append({"role": "assistant", "content": response})
+        return response
 
 
 if __name__ == "__main__":
@@ -208,5 +231,21 @@ if __name__ == "__main__":
 
     dm = DialogManager(prompt_templates)
     response = dm.run("流量大的")
+    print("===response===")
+    print(response)
+    
+    # 增加约束：改变语气、口吻
+    ext = "很口语，亲切一些。不用说“抱歉”。直接给出回答，不用在前面加“小瓜说：”。NO COMMENTS. NO ACKNOWLEDGEMENTS."
+    prompt_templates = {k: v+ext for k, v in prompt_templates.items()}
+    dm = DialogManager(prompt_templates)
+    response = dm.run("300太贵了，200元以内有吗")
+    print("===response===")
+    print(response)
+    
+    # 用例子实现统一口径
+    ext = "\n\n遇到类似问题，请参照以下回答：\n问：流量包太贵了\n答：亲，我们都是全省统一价哦。"
+    prompt_templates = {k: v+ext for k, v in prompt_templates.items()}
+    dm = DialogManager(prompt_templates)
+    response = dm.run("这流量包太贵了")
     print("===response===")
     print(response)
