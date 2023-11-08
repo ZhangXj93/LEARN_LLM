@@ -23,10 +23,10 @@ def process_prompt():
         "content": prompt
     }]
     # 调用 OpenAI API 获取结果
-    response = openai.Completion.create(
-        engine='davinci-codex',
-        prompt=prompt,
-        max_tokens=100
+    response = openai.ChatCompletion.create(
+        model = "gpt-3.5-turbo",
+        messages = messages,
+        temperature = 0,
     )
 
     # 从结果中提取生成的文本
