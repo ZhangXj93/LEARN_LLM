@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My First OpenAI Page</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h1>My First OpenAI Page</h1>
+    <input type="text" id="prompt-input" placeholder="Enter your prompt">
+    <button onclick="sendPrompt()">Send</button>
+    <div id="result"></div>
+
+    <script>
+        function sendPrompt() {
+            // 获取用户输入的 prompt
+            var prompt = document.getElementById('prompt-input').value;
+
+            // 发送请求给后端
+            axios.post('http://localhost:5000/process-prompt', { prompt: prompt })
+                .then(function (response) {
+                    // 显示结果
+                    document.getElementById('result').innerText = response.data.result;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+    </script>
+</body>
+</html>
