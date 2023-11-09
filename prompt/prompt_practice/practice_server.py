@@ -23,14 +23,14 @@ def process_prompt():
         "content": prompt
     }]
     # 调用 OpenAI API 获取结果
-    response = openai.ChatCompletion.create(
-        model = "gpt-3.5-turbo",
+    response = openai.chat.completions.create(
+        model = "gpt-3.5-turbo-1106",
         messages = messages,
         temperature = 0,
     )
 
     # 从结果中提取生成的文本
-    result = response.choices[0].message["content"]
+    result = response.choices[0].message.content
 
     # 返回结果给前端
     return jsonify({'result': result})

@@ -71,18 +71,18 @@ class NLU:
     def __init__(self) -> None:
         self.prompt_template = f"{instruction}\n\n{output_format}\n\n例如:{examples}\n\n用户输入:\n __INPUT__"
 
-    def _get_chat_completion(self, prompt, model = "gpt-3.5-turbo"):
+    def _get_chat_completion(self, prompt, model = "gpt-3.5-turbo-1106"):
         messages = [{
             "role": "user",
             "content": prompt
         }]
 
-        response = openai.ChatCompletion.create(
+        response = openai.chat.completions.create(
             model = model,
             messages = messages,
             temperature = 0,
         )
-        semantics = json.loads(response.choices[0].message["content"])
+        semantics = json.loads(response.choices[0].message.content)
         return {k: v for k, v in semantics.items() if v}
 
     def parse(self, user_input):
@@ -182,16 +182,16 @@ class DialogManager:
                     prompt = prompt.replace(f"__{k.upper()}__", str(v))
         return prompt
     
-    def _call_chatgpt(self, prompt, model="gpt-3.5-turbo"):
+    def _call_chatgpt(self, prompt, model="gpt-3.5-turbo-1106"):
         session = copy.deepcopy(self.session)
         session.append({"role": "user", "content": prompt})
         print("session: ", session)
-        response = openai.ChatCompletion.create(
+        response = openai.chat.completions.create(
             model=model,
             messages=session,
             temperature=0,
         )
-        return response.choices[0].message["content"]
+        return response.choices[0].message.content
     
     def run(self, user_input):
         # 调用NLU获得语义解析

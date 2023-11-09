@@ -8,8 +8,8 @@ _ = load_dotenv(find_dotenv())
 openai.api_key = os.getenv('OPENAI_API_KEY') # 设置 OpenAI 的 key
 # openai.api_base = os.getenv('OPENAI_API_BASE') # 指定代理地址
 
-response = openai.ChatCompletion.create(
-    model="gpt-3.5-turbo",
+response = openai.chat.completions.create(
+    model="gpt-3.5-turbo-1106",
     messages=[
         {
             "role": "user",
@@ -18,4 +18,4 @@ response = openai.ChatCompletion.create(
     ],
 )
 
-print(response.choices[0].message["content"])
+print(response.choices[0].message.content)

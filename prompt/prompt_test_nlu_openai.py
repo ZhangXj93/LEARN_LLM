@@ -21,7 +21,7 @@ _ = load_dotenv(find_dotenv())
 
 # 配置 OpenAI 服务
 openai.api_key = os.getenv('OPENAI_API_KEY') # 设置 OpenAI 的 key
-openai.api_base = os.getenv('OPENAI_API_BASE') # 指定代理地址
+# openai.api_base = os.getenv('OPENAI_API_BASE') # 指定代理地址
 
 session = [
     {
@@ -36,14 +36,14 @@ session = [
     }
 ]
 
-def get_completion(prompt, model="gpt-3.5-turbo"):
+def get_completion(prompt, model="gpt-3.5-turbo-1106"):
     session.append({"role": "user", "content": prompt})
-    response = openai.ChatCompletion.create(
+    response = openai.chat.completions.create(
         model=model,
         messages=session,
         temperature=0,  # 模型输出的随机性，0 表示随机性最小
     )
-    msg = response.choices[0].message["content"]
+    msg = response.choices[0].message.content
     session.append({"role": "assistant", "content": msg})
     return msg
 
