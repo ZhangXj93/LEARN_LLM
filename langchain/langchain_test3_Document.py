@@ -104,5 +104,28 @@ response = llm(
         )
 print(response.content)
 
+########## 向量检索初探 ###########
+from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain.vectorstores import FAISS
+
+embeddings = OpenAIEmbeddings() 
+db = FAISS.from_documents(paragraphs, embeddings) #Facebook的开源向量检索引擎
+
+user_query = "llama 2有对话式的版本吗"
+
+docs = db.similarity_search(user_query)
+print("===检索结果===")
+print(docs[0].page_content)
+
+response = llm(
+            template.format_messages(
+                information=docs[0].page_content,
+                query=user_query
+            )
+        )
+
+print("===回答===")
+print(response.content)
+
 
 

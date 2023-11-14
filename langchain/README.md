@@ -4,3 +4,4 @@
     - pip install pydantic
     - pip install wordninja
     - pip install scikit-learn
+    - pip install faiss-cpu
