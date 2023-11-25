@@ -47,6 +47,21 @@ my_skill = kernel.import_semantic_skill_from_directory(
 #     )
 sk_func = my_skill["GenerateCommand"]
 result = sk_func("更改系统时间为2020年1月1日")
+print(result.result)
 
-print(result)
+from sk_samples.sample_plugin import CommandVerifier
+verify_skill = kernel.import_skill(CommandVerifier(), "Verifier")
+# 看结果
+verify_func = verify_skill["verifyCommand"],
+print(verify_func[0]('date -s "2023-04-01"'))
+
+async def async_func():
+    result = await kernel.run_async(
+            verify_skill["verifyCommand"],
+            input_str='date -s "2023-04-01"',
+        )
+
+    print(result)
+    
+asyncio.run(async_func())
 
