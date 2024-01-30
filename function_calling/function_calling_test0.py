@@ -31,22 +31,6 @@ def get_completion(messages, model="gpt-3.5-turbo-1106"):
                     }
                 }
             },
-            # { # 用 JSON 描述函数。可以定义多个。由大模型决定调用谁
-            #     "type": "function",
-            #     "function": {
-            #         "name": "calculate",
-            #         "description": "计算一个数学表达式的值",
-            #         "parameters": {
-            #             "type": "object",
-            #             "properties": {
-            #                 "expression": {
-            #                     "type": "string",
-            #                     "description": "a mathematical expression in python grammar."
-            #                 }
-            #             }
-            #         }
-            #     }
-            # },
         ]
     )
     return response.choices[0].message
@@ -62,9 +46,9 @@ messages = [
 ]
 response = get_completion(messages)
 # 把大模型的回复加入到对话历史中
-if (response.content is None):  # 解决 OpenAI 的一个 400 bug
-    response.content = ""
-messages.append(response)
+# if (response.content is None):  # 解决 OpenAI 的一个 400 bug
+#     response.content = ""
+messages.append(response) # 注意这一句，必须加入到上下文中，否则报错
 print("=====GPT回复=====")
 print(response)
 
@@ -77,10 +61,10 @@ if (response.tool_calls is not None):
             # 调用 sum 函数（本地函数或库函数，非chatgpt），打印结果
             args = json.loads(tool_call.function.arguments)
             result = sum(args["numbers"])
-        elif (tool_call.function.name == "calculate"):
-            # 调用 sum
-            args = json.loads(tool_call.function.arguments)
-            result = eval(args["expression"])
+        # elif (tool_call.function.name == "calculate"):
+        #     # 调用 sum
+        #     args = json.loads(tool_call.function.arguments)
+        #     result = eval(args["expression"])
 
         print("=====函数返回=====")
         print(result)
@@ -90,7 +74,7 @@ if (response.tool_calls is not None):
             {
                 "tool_call_id": tool_call.id,  # 用于标识函数调用的 ID
                 "role": "tool",
-                "name": "calculate",
+                "name": "sum",
                 "content": str(result)  # 数值result 必须转成字符串
             }
         )

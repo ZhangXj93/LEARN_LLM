@@ -6,9 +6,6 @@ import requests
 from dotenv import load_dotenv, find_dotenv
 _ = load_dotenv(find_dotenv())
 
-# 配置 OpenAI 服务
-openai.api_key = os.getenv('OPENAI_API_KEY') # 设置 OpenAI 的 key
-# openai.api_base = os.getenv('OPENAI_API_BASE') # 指定代理地址
 
 amap_key = os.getenv('AMAP_KEY')
 
@@ -111,7 +108,7 @@ while (response.tool_calls is not None):
     # 1106 版新模型支持一次返回多个函数调用请求
     for tool_call in response.tool_calls:
         args = json.loads(tool_call.function.arguments)
-        print(args)
+        print("参数：", args)
 
         if (tool_call.function.name == "get_location_coordinate"):
             print("Call: get_location_coordinate")
@@ -133,6 +130,8 @@ while (response.tool_calls is not None):
     response = get_completion(messages)
     if (response.content is None):  # 解决 OpenAI 的一个 400 bug
         response.content = ""
+    print("=====GPT回复2=====")
+    print(response)
     messages.append(response)  # 把大模型的回复加入到对话中
 
 print("=====最终回复=====")
