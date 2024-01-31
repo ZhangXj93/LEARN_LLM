@@ -166,13 +166,17 @@ class RAG_Bot:
         
         # 2. 构建 Prompt
         prompt = build_prompt(prompt_template, info=search_results['documents'][0], query=user_query)
+        print("prompt===================>")
+        print(prompt)
         
         # 3. 调用 LLM
         response = self.llm_api(prompt)
         return response
 
 
-rag_bot = RAG_Bot()
-rag_bot.createVectorDB("D:\GitHub\LEARN_LLM\RAG\如何向 ChatGPT 提问以获得高质量答案：提示技巧工程完全指南.pdf")
-response = rag_bot.chat("什么是角色提示？")
-print(response)
+if __name__ == "__main__":
+    rag_bot = RAG_Bot()
+    rag_bot.createVectorDB("D:\GitHub\LEARN_LLM\RAG\如何向 ChatGPT 提问以获得高质量答案：提示技巧工程完全指南.pdf")
+    response = rag_bot.chat("什么是角色提示？")
+    print("response=====================>")
+    print(response)
