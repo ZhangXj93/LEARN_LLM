@@ -1,23 +1,65 @@
 import gradio as gr
-import random
-from rag import RAG_Bot
+from rag import RAG_Bot ## 引入前面我们实现的rag文件和类
 
-CHAT_BOT = RAG_Bot()
-# 定义一个处理函数，用于接收上传的文件并进行处理
-def process_file(file):
-    # 在这里进行文件处理，这里只是一个示例
-    # 您可以在这里编写您的文件处理逻辑
-    CHAT_BOT.createVectorDB(file)
-    return file
+chat_bot = RAG_Bot() ## 实例化一个chat_bot
+
+def process_inputs(input_file, chat_input):
+    outputs = ["", ""]
+    if input_file is not None:  # 处理文件上传
+        chat_bot.createVectorDB(input_file) ## 创建向量库，灌入数据
+        outputs[0] = f"你上传的文件内容是：\n{str(input_file)}"
+    if chat_input != "":  # 处理聊天输入
+        outputs[1] = chat_bot.chat(chat_input) ## 将聊天输入当作query，进行对话
+    return tuple(outputs)
+
+# 输入类型为文件上传和文本框
+inputs = [gr.File(), gr.Textbox(label="聊天输入")]
+
+# 输出类型为文件内容和聊天输出
+outputs = [gr.Textbox(label="文件内容"), gr.Textbox(label="聊天输出")]
+
+iface = gr.Interface(process_inputs, 
+                     inputs=inputs,
+                     outputs=outputs,
+                     title="文件上传和聊天窗口",
+                     description="请在适当的输入框中上传文件或进行聊天。",
+                     allow_flagging=False)
+iface.launch()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# import gradio as gr
+# import random
+# from rag import RAG_Bot
+
+# CHAT_BOT = RAG_Bot()
+# # 定义一个处理函数，用于接收上传的文件并进行处理
+# def process_file(file):
+#     # 在这里进行文件处理，这里只是一个示例
+#     # 您可以在这里编写您的文件处理逻辑
+#     CHAT_BOT.createVectorDB(file)
+#     return file
     
 
-def random_response(message, history):
-    response = CHAT_BOT.chat(message)
-    return response
+# def random_response(message, history):
+#     response = CHAT_BOT.chat(message)
+#     return response
 
-with gr.Blocks() as demo:
-    # 创建一个Gradio应用，包含上传文件的功能和处理函数
-    bot = gr.Interface(fn=process_file, inputs="file", outputs="text")
-    iface2 = gr.ChatInterface(random_response)
+# with gr.Blocks() as demo:
+#     # 创建一个Gradio应用，包含上传文件的功能和处理函数
+#     bot = gr.Interface(fn=process_file, inputs="file", outputs="text")
+#     iface2 = gr.ChatInterface(random_response)
 
-demo.launch()
+# demo.launch()
