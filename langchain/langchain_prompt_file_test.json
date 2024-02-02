@@ -1,0 +1,5 @@
+{
+    "_type": "prompt",
+    "input_variables": ["name", "description"],
+    "template_path": "D:\\GitHub\\LEARN_LLM\\langchain\\prompt_template_test.txt"
+}
