@@ -145,7 +145,7 @@ def output_parse_test():
     print(prompt_str)
     response = llm.invoke(prompt_str)
     print(f"\n{response.content}")
-    response.content = response.content.replace("?", "")
+    # response.content = response.content.replace("?", "") ## 认为改错结果，测试后面的OutputFixingParser
     try:
         parser_result = parser.invoke(response)
         print(f"\n{parser_result}")
