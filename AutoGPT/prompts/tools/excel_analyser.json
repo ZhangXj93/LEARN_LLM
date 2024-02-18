@@ -1,0 +1,10 @@
+{
+    "_type": "prompt",
+    "input_variables": [
+      "filename",
+      "columns",
+      "inspections",
+      "query"
+    ],
+    "template_path": "excel_analyser.txt"
+}

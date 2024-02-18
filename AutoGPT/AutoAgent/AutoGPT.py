@@ -1,7 +1,7 @@
 from typing import List, Optional, Tuple
 
-from langchain.chat_models.base import BaseChatModel
-from langchain.llms import BaseLLM
+from langchain.memory.chat_memory import BaseChatMemory
+from langchain_core.language_models.chat_models import BaseChatModel
 from langchain.memory import ConversationTokenBufferMemory, VectorStoreRetrieverMemory
 from langchain.output_parsers import PydanticOutputParser, OutputFixingParser
 from langchain.schema.output_parser import StrOutputParser
@@ -13,19 +13,31 @@ from AutoAgent.Action import Action
 from Utils.PromptTemplateBuilder import PromptTemplateBuilder
 from Utils.PrintUtils import *
 
+
+def _format_long_term_memory(task_description: str, memory: BaseChatMemory) -> str:
+    return memory.load_memory_variables(
+        {"prompt": task_description}
+    )["history"]
+
+
+def _format_short_term_memory(memory: BaseChatMemory) -> str:
+    messages = memory.chat_memory.messages
+    string_messages = [messages[i].content for i in range(1,len(messages))]
+    return "\n".join(string_messages)
+
+
+
 class AutoGPT:
     """AutoGPT：基于Langchain实现"""
 
     def __init__(
             self,
-            llm: BaseLLM,
+            llm: BaseChatModel,
             prompts_path: str,
             tools: List[BaseTool],
             work_dir: str = "./data",
             main_prompt_file: str = "main.json",
             final_prompt_file: str = "final_step.json",
-            agent_name: Optional[str] = "瓜瓜",
-            agent_role: Optional[str] = "强大的AI助手，可以使用工具与指令自动化解决问题",
             max_thought_steps: Optional[int] = 10,
             memery_retriever: Optional[VectorStoreRetriever] = None,
     ):
@@ -33,8 +45,6 @@ class AutoGPT:
         self.prompts_path = prompts_path
         self.tools = tools
         self.work_dir = work_dir
-        self.agent_name = agent_name
-        self.agent_role = agent_role
         self.max_thought_steps = max_thought_steps
         self.memery_retriever = memery_retriever
 
@@ -57,23 +67,22 @@ class AutoGPT:
               short_term_memory,
               long_term_memory,
               verbose=False
-        ) -> Tuple[Action, str]:
+              ) -> Tuple[Action, str]:
 
         """执行一步思考"""
 
         response = ""
         for s in reason_chain.stream({
-                "short_term_memory": short_term_memory.load_memory_variables({})["history"],
-                "long_term_memory" : long_term_memory.load_memory_variables(
-                    {"prompt": task_description}
-                )["history"] if long_term_memory is not None else "",
-            }):
+            "short_term_memory": _format_short_term_memory(short_term_memory),
+            "long_term_memory": _format_long_term_memory(task_description, long_term_memory)
+            if long_term_memory is not None else "",
+        }):
             if verbose:
                 color_print(s, THOUGHT_COLOR, end="")
             response += s
 
         action = self.robust_parser.parse(response)
-        return (action, response)
+        return action, response
 
     def _final_step(self, short_term_memory, task_description) -> str:
         """最后一步, 生成最终的输出"""
@@ -81,19 +90,17 @@ class AutoGPT:
             self.prompts_path,
             self.final_prompt_file,
         ).build().partial(
-            ai_name=self.agent_name,
-            ai_role=self.agent_role,
             task_description=task_description,
-            short_term_memory=short_term_memory.load_memory_variables({})["history"],
+            short_term_memory=_format_short_term_memory(short_term_memory),
         )
-        chain = ( finish_prompt | self.llm | StrOutputParser() )
+        chain = (finish_prompt | self.llm | StrOutputParser())
         response = chain.invoke({})
         return response
 
     def _exec_action(self, action: Action) -> str:
         # 查找工具
         tool = self._find_tool(action.name)
-        #action_expr = format_action(action)
+        # action_expr = format_action(action)
         if tool is None:
             observation = (
                 f"Error: 找不到工具或指令 '{action.name}'. "
@@ -115,16 +122,8 @@ class AutoGPT:
 
         return observation
 
-
-    def _format_plan(self,response):
-        plan_start = response.find("计划:")
-        if plan_start == -1:
-            plan_start = 0
-        plan = response[plan_start:]
-        return plan
-
     def run(self, task_description, verbose=False) -> str:
-        thought_step_count = 0 # 思考步数
+        thought_step_count = 0  # 思考步数
 
         # 初始化模板
         prompt_template = PromptTemplateBuilder(
@@ -135,15 +134,11 @@ class AutoGPT:
             output_parser=self.output_parser,
         ).partial(
             work_dir=self.work_dir,
-            ai_name=self.agent_name,
-            ai_role=self.agent_role,
             task_description=task_description,
         )
 
         short_term_memory = ConversationTokenBufferMemory(
             llm=self.llm,
-            ai_prefix="",
-            human_prefix="",
             max_token_limit=4000,
         )
 
@@ -153,7 +148,7 @@ class AutoGPT:
         )
 
         # 初始化LLM链
-        chain = ( prompt_template | self.llm | StrOutputParser() )
+        chain = (prompt_template | self.llm | StrOutputParser())
 
         # 如果有长时记忆，加载长时记忆
         if self.memery_retriever is not None:
@@ -167,7 +162,7 @@ class AutoGPT:
 
         while thought_step_count < self.max_thought_steps:
             if verbose:
-                color_print(f">>>>Round: {thought_step_count}<<<<",ROUND_COLOR)
+                color_print(f">>>>Round: {thought_step_count}<<<<", ROUND_COLOR)
 
             action, response = self._step(
                 chain,
@@ -179,7 +174,7 @@ class AutoGPT:
 
             if action.name == "FINISH":
                 if verbose:
-                    color_print(f"\n----\nFINISH",OBSERVATION_COLOR)
+                    color_print(f"\n----\nFINISH", OBSERVATION_COLOR)
 
                 reply = self._final_step(short_term_memory, task_description)
                 break
@@ -187,12 +182,12 @@ class AutoGPT:
             observation = self._exec_action(action)
 
             if verbose:
-                color_print(f"\n----\n结果:\n{observation}",OBSERVATION_COLOR)
+                color_print(f"\n----\n结果:\n{observation}", OBSERVATION_COLOR)
 
             # 保存到短时记忆
             short_term_memory.save_context(
                 {"input": response},
-                {"output": "返回结果:\n"+observation}
+                {"output": "返回结果:\n" + observation}
             )
 
             thought_step_count += 1
@@ -208,4 +203,3 @@ class AutoGPT:
             )
 
         return reply
-

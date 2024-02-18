@@ -1,0 +1,8 @@
+{
+    "_type": "prompt",
+    "input_variables": [
+      "task_description",
+      "short_term_memory"
+    ],
+    "template_path": "final_step.txt"
+}

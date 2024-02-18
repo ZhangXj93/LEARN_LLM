@@ -1,19 +1,17 @@
 {
     "_type": "prompt",
     "input_variables": [
-        "ai_name",
-        "ai_role",
-        "instructions",
-        "task_description",
-        "work_dir",
-        "constraints",
-        "tools",
-        "resources",
-        "performance_evaluation",
-        "long_term_memory",
-        "short_term_memory",
-        "thought_instructions",
-        "format_instructions"
+      "instructions",
+      "task_description",
+      "work_dir",
+      "constraints",
+      "tools",
+      "resources",
+      "performance_evaluation",
+      "long_term_memory",
+      "short_term_memory",
+      "thought_instructions",
+      "format_instructions"
     ],
     "template_path": "main.txt"
 }
