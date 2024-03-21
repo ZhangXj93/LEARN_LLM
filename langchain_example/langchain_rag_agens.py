@@ -1,6 +1,6 @@
-import os
-os.environ["LANGCHAIN_TRACING_V2"]="true"
-os.environ["LANGCHAIN_PROJECT"]="test-langchain-rag"
+# import os
+# os.environ["LANGCHAIN_TRACING_V2"]="true"
+# os.environ["LANGCHAIN_PROJECT"]="test-langchain-rag"
 
 import bs4
 from langchain import hub
@@ -24,7 +24,9 @@ docs = loader.load()
 
 text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
 splits = text_splitter.split_documents(docs)
-vectorstore = Chroma.from_documents(documents=splits, embedding=OpenAIEmbeddings())
+# vectorstore = Chroma.from_documents(documents=splits, embedding=OpenAIEmbeddings(), persist_directory="./chroma.db")
+
+vectorstore = Chroma(embedding_function=OpenAIEmbeddings(), persist_directory="./chroma.db")
 
 # Retrieve and generate using the relevant snippets of the blog.
 retriever = vectorstore.as_retriever()

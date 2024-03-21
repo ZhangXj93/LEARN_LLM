@@ -41,8 +41,8 @@ chrome_options.add_experimental_option('prefs', prefs)
 
 
 driver = webdriver.Chrome(options=chrome_options)
-driver.get('https://mp.weixin.qq.com/s/MsQNXtzutoJHodlJEG4CJQ')
+driver.get('https://mp.weixin.qq.com/s/2m8MrsCxf5boiH4Dzpphrg')
 driver.maximize_window()
-time.sleep(3)
-driver.execute_script('document.title="my_test_file1.pdf";window.print();') #利用js修改网页的title，该title最终就是PDF文件名，利用js的window.print可以快速调出浏览器打印窗口，避免使用热键ctrl+P
+time.sleep(10)
+driver.execute_script('document.title="my_test_file2.pdf";window.print();') #利用js修改网页的title，该title最终就是PDF文件名，利用js的window.print可以快速调出浏览器打印窗口，避免使用热键ctrl+P
 driver.close()

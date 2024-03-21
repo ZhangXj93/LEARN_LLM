@@ -63,29 +63,29 @@ def print_url_to_pdf(url, save_root,
     print(f'now: url: {url}')
     driver.get(url)
  
-    # # 获取当前所有窗口的句柄
-    # handles = driver.window_handles
-    # # 切换到最后一个窗口（假设最后一个窗口是要操作的窗口）
-    # driver.switch_to.window(handles[-1])
+    # 获取当前所有窗口的句柄
+    handles = driver.window_handles
+    # 切换到最后一个窗口（假设最后一个窗口是要操作的窗口）
+    driver.switch_to.window(handles[-1])
  
  
-    # # 获取当前视口的高度
-    # viewport_height = driver.execute_script("return window.innerHeight;")
-    # # 获取滚动条的位置
-    # current_scroll_position = driver.execute_script("return window.scrollY;")
+    # 获取当前视口的高度
+    viewport_height = driver.execute_script("return window.innerHeight;")
+    # 获取滚动条的位置
+    current_scroll_position = driver.execute_script("return window.scrollY;")
  
-    # # 定义滚动的距离和间隔时间
-    # # scroll_distance = 200 # 每次滚动的距离
-    # # scroll_interval = 0.5 # 每次滚动的间隔时间（秒）
+    # 定义滚动的距离和间隔时间
+    scroll_distance = 200 # 每次滚动的距离
+    scroll_interval = 0.5 # 每次滚动的间隔时间（秒）
  
-    # # 计算需要滚动的次数
-    # num_scrolls = int((driver.execute_script("return document.body.scrollHeight;") - current_scroll_position) / scroll_distance)
+    # 计算需要滚动的次数
+    num_scrolls = int((driver.execute_script("return document.body.scrollHeight;") - current_scroll_position) / scroll_distance)
  
-    # print('scroll pages...')
-    # # 循环滚动页面
-    # for _ in range(num_scrolls):
-    #     driver.execute_script(f"window.scrollBy(0, {scroll_distance});")
-    #     time.sleep(scroll_interval)
+    print('scroll pages...')
+    # 循环滚动页面
+    for _ in range(num_scrolls):
+        driver.execute_script(f"window.scrollBy(0, {scroll_distance});")
+        time.sleep(scroll_interval)
  
     # # 执行 JavaScript 代码，将页面滚动到底部
     # driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
@@ -111,10 +111,10 @@ def download_urls(url_list, name_list, save_root):
  
  
 url_list =[
-    'https://mp.weixin.qq.com/s/MsQNXtzutoJHodlJEG4CJQ'
+    'https://mp.weixin.qq.com/s/2m8MrsCxf5boiH4Dzpphrg'
 ]
 name_list = [
-    'test.pdf'
+    'test333.pdf'
 ]
 save_root = 'D:\\GitHub\\LEARN_LLM\\WeChat\\'
 download_urls(url_list, name_list, save_root)
