@@ -1,0 +1,5 @@
+"Hello World!"
+{"name": "User", "content": "Hello, how are you?"}
+{"name": "Agent", "content": "I'm fine, thank you!"}
+{"id": "0b9ed092c3d14e6492148bc5bb454fca", "timestamp": "2024-04-13 11:00:04", "name": "assistant", "content": "Thank you! How can I assist you today?", "role": "assistant", "url": null}
+{"id": "ad78e5a563784457a3b3639c05c6c916", "timestamp": "2024-04-13 11:00:19", "name": "User", "content": "exit", "role": "user", "url": null}

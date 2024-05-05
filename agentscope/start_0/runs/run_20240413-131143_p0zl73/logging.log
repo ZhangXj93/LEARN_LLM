@@ -1,0 +1,15 @@
+2024-04-13 13:11:54.857 | INFO     | agentscope.models:read_model_configs:180 - Load configs for model wrapper: openai_cfg
+2024-04-13 13:11:54.886 | INFO     | agentscope.utils.monitor:_create_monitor_table:343 - Init [monitor_metrics] as the monitor table
+2024-04-13 13:11:54.887 | INFO     | agentscope.utils.monitor:_create_monitor_table:344 - Init [monitor_metrics_quota_exceeded] as the monitor trigger
+2024-04-13 13:11:54.887 | INFO     | agentscope.utils.monitor:__init__:313 - SqliteMonitor initialization completed at [./runs\run_20240413-131143_p0zl73\agentscope.db]
+2024-04-13 13:11:54.913 | WARNING  | agentscope.models:_get_model_wrapper:89 - Model type [openai] will be deprecated in future releases, please use [openai_chat] instead.
+2024-04-13 13:11:54.914 | INFO     | agentscope.models.model:__init__:204 - Initialize model [openai_cfg]
+2024-04-13 13:11:55.302 | INFO     | agentscope.utils.monitor:register_budget:556 - set budget None to gpt-3.5-turbo
+2024-04-13 13:11:55.307 | INFO     | agentscope.utils.monitor:register:364 - Register metric [gpt-3.5-turbo.cost] to SqliteMonitor with unit [dollor] and quota [None]
+2024-04-13 13:11:55.317 | INFO     | agentscope.utils.monitor:register:364 - Register metric [gpt-3.5-turbo.prompt_tokens] to SqliteMonitor with unit [token] and quota [None]
+2024-04-13 13:11:55.333 | INFO     | agentscope.utils.monitor:register:364 - Register metric [gpt-3.5-turbo.completion_tokens] to SqliteMonitor with unit [token] and quota [None]
+2024-04-13 13:11:55.349 | INFO     | agentscope.utils.monitor:register:364 - Register metric [gpt-3.5-turbo.call_counter] to SqliteMonitor with unit [times] and quota [None]
+2024-04-13 13:11:55.361 | INFO     | agentscope.utils.monitor:register:364 - Register metric [gpt-3.5-turbo.total_tokens] to SqliteMonitor with unit [token] and quota [None]
+assistant: Thanks! How can I assist you today?
+User: 讲个笑话
+assistant: 为了变得幽默，一些电子设备开始学习幽默。有一天，一个电脑走进了一个酒吧。酒吧里的人们都惊讶地看着它。电脑坐在吧台上，服务员问道：“你要喝点什么？” 电脑回答说：“我想要一杯………………网格酒！”

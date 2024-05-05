@@ -1,0 +1,39 @@
+{
+    "model_class": "OpenAIChatWrapper",
+    "timestamp": "20240413-131158",
+    "arguments": {
+        "model": "gpt-3.5-turbo",
+        "messages": [
+            {
+                "role": "system",
+                "name": "system",
+                "content": "You are a helpful ai assistant"
+            }
+        ]
+    },
+    "response": {
+        "id": "chatcmpl-89DFXt74bSIKqp7CostWRjLK5EApK",
+        "choices": [
+            {
+                "finish_reason": "stop",
+                "index": 0,
+                "logprobs": null,
+                "message": {
+                    "content": "Thanks! How can I assist you today?",
+                    "role": "assistant",
+                    "function_call": null,
+                    "tool_calls": null
+                }
+            }
+        ],
+        "created": 1712985117,
+        "model": "gpt-3.5-turbo",
+        "object": "chat.completion",
+        "system_fingerprint": null,
+        "usage": {
+            "completion_tokens": 9,
+            "prompt_tokens": 13,
+            "total_tokens": 22
+        }
+    }
+}

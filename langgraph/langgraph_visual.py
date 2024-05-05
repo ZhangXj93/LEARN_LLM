@@ -8,7 +8,7 @@ model = ChatOpenAI()
 
 app = chat_agent_executor.create_function_calling_executor(model, tools)
 
-# app.get_graph().print_ascii()
+app.get_graph().print_ascii()
 
 from IPython.display import Image
 

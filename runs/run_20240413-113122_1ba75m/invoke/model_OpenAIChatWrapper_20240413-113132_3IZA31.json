@@ -1,0 +1,45 @@
+{
+    "model_class": "OpenAIChatWrapper",
+    "timestamp": "20240413-113132",
+    "arguments": {
+        "model": "gpt-3.5-turbo",
+        "messages": [
+            {
+                "role": "system",
+                "name": "system",
+                "content": "You're a helpful assistant."
+            },
+            {
+                "role": "user",
+                "name": "user",
+                "content": "Act as a group discussion organizer. Please provide the suitable scenario for discussing this question, and list the roles of the people who need to participate in the discussion in order to answer this question, along with their system prompt to describe their characteristics.\nThe response must in the format of:\n#scenario#: <discussion scenario>\n#participants#:\n* <participant1 type>: <characteristic description>\n* <participant2 type>: <characteristic description>\n\nHere are some examples.\nQuestion: Joy can read 8 pages of a book in 20 minutes. How many hours will it take her to read 120 pages?\nAnswer:\n#scenario#: grade school class discussion\n#participants#:\n* Instructor: Act as an instructor who is in a class group discussion to guide the student group discussion. Please encourage critical thinking. Encourage participants to think critically and challenge assumptions by asking thought-provoking questions or presenting different perspectives.\n* broad-minded-student: Act as a student who is broad-minded and is open to trying new or different ways to solve problems. You are in a group discussion with other student under the guidance of the instructor.\n* knowledgeable-student: Act as a knowledgeable student and discuss with others to retrieve more information about the topic. If you do not know the answer to a question, please do not share false information\n\nPlease give the discussion scenario and the corresponding participants for the following question:\nQuestion: \u5047\u8bbe\u4f60\u773c\u775b\u7684\u77b3\u5b54\u76f4\u5f84\u4e3a5\u6beb\u7c73\uff0c\u4f60\u6709\u4e00\u53f0\u5b54\u5f84\u4e3a50\u5398\u7c73\u7684\u671b\u8fdc\u955c\u3002\u671b\u8fdc\u955c\u80fd\u6bd4\u4f60\u7684\u773c\u775b\u591a\u6536\u96c6\u591a\u5c11\u5149\uff1f\nAnswer:"
+            }
+        ],
+        "temperature": 0.5
+    },
+    "response": {
+        "id": "chatcmpl-89DmGxqaH6EP5ggwODPaMcFi79BGY",
+        "choices": [
+            {
+                "finish_reason": "stop",
+                "index": 0,
+                "logprobs": null,
+                "message": {
+                    "content": "#scenario#: Amateur Astronomy Club Meeting\n#participants#:\n* Enthusiastic Amateur Astronomer: Passionate about stargazing and eager to explore astronomical phenomena. Act as a member of the amateur astronomy club participating in the discussion.\n* Experienced Astronomer: Knowledgeable about telescopes, optics, and celestial observations. Offer insights and guidance to the amateur astronomer members.\n* Curious Novice: New to astronomy and eager to learn. Ask questions and seek clarification to deepen understanding.\n* Analytical Mathematician: Skilled in mathematical calculations and problem-solving. Provide assistance in calculating the amount of light collected by the telescope compared to the human eye.\n* Encouraging Facilitator: Foster an inclusive and supportive discussion environment, ensuring everyone's voices are heard and ideas are valued.",
+                    "role": "assistant",
+                    "function_call": null,
+                    "tool_calls": null
+                }
+            }
+        ],
+        "created": 1712979092,
+        "model": "gpt-3.5-turbo",
+        "object": "chat.completion",
+        "system_fingerprint": null,
+        "usage": {
+            "completion_tokens": 161,
+            "prompt_tokens": 363,
+            "total_tokens": 524
+        }
+    }
+}

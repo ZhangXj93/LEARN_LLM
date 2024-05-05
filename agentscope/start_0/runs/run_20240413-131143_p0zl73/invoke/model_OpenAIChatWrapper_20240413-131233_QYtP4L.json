@@ -1,0 +1,49 @@
+{
+    "model_class": "OpenAIChatWrapper",
+    "timestamp": "20240413-131233",
+    "arguments": {
+        "model": "gpt-3.5-turbo",
+        "messages": [
+            {
+                "role": "system",
+                "name": "system",
+                "content": "You are a helpful ai assistant"
+            },
+            {
+                "role": "assistant",
+                "name": "assistant",
+                "content": "Thanks! How can I assist you today?"
+            },
+            {
+                "role": "user",
+                "name": "User",
+                "content": "\u8bb2\u4e2a\u7b11\u8bdd"
+            }
+        ]
+    },
+    "response": {
+        "id": "chatcmpl-89DshV9ISoBniU3xn2wbi5FFwktBL",
+        "choices": [
+            {
+                "finish_reason": "stop",
+                "index": 0,
+                "logprobs": null,
+                "message": {
+                    "content": "\u4e3a\u4e86\u53d8\u5f97\u5e7d\u9ed8\uff0c\u4e00\u4e9b\u7535\u5b50\u8bbe\u5907\u5f00\u59cb\u5b66\u4e60\u5e7d\u9ed8\u3002\u6709\u4e00\u5929\uff0c\u4e00\u4e2a\u7535\u8111\u8d70\u8fdb\u4e86\u4e00\u4e2a\u9152\u5427\u3002\u9152\u5427\u91cc\u7684\u4eba\u4eec\u90fd\u60ca\u8bb6\u5730\u770b\u7740\u5b83\u3002\u7535\u8111\u5750\u5728\u5427\u53f0\u4e0a\uff0c\u670d\u52a1\u5458\u95ee\u9053\uff1a\u201c\u4f60\u8981\u559d\u70b9\u4ec0\u4e48\uff1f\u201d \u7535\u8111\u56de\u7b54\u8bf4\uff1a\u201c\u6211\u60f3\u8981\u4e00\u676f\u2026\u2026\u2026\u2026\u2026\u2026\u7f51\u683c\u9152\uff01\u201d",
+                    "role": "assistant",
+                    "function_call": null,
+                    "tool_calls": null
+                }
+            }
+        ],
+        "created": 1712985153,
+        "model": "gpt-3.5-turbo",
+        "object": "chat.completion",
+        "system_fingerprint": null,
+        "usage": {
+            "completion_tokens": 116,
+            "prompt_tokens": 27,
+            "total_tokens": 143
+        }
+    }
+}

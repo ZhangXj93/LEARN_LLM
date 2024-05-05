@@ -11,6 +11,13 @@ from .FileQATool import ask_docment
 from .WriterTool import write
 from .EmailTool import send_email
 from .ExcelTool import get_first_n_rows, get_column_names
+from .Dubins import DubinsTool
+
+dubins_tool = StructuredTool.from_function(
+    func=DubinsTool,
+    name="DubinsTool",
+    description="使用Dubins工具进行路径规划",
+)
 
 document_qa_tool = StructuredTool.from_function(
     func=ask_docment,
