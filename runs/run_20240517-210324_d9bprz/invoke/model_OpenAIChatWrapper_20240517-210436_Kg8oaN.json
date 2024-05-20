@@ -1,0 +1,64 @@
+{
+    "model_class": "OpenAIChatWrapper",
+    "timestamp": "20240517-210436",
+    "arguments": {
+        "model": "gpt-3.5-turbo",
+        "messages": [
+            {
+                "role": "system",
+                "name": "system",
+                "content": "You are a helpful ai assistant"
+            },
+            {
+                "role": "user",
+                "name": "user",
+                "content": "\u7528\u6237\u60f3\u77e5\u9053\u7684\u662f: hello, \u8bf7\u6839\u636e\u4ee5\u4e0b\u6587\u6863\u5185\u5bb9\u56de\u7b54\u4e0a\u8ff0\u95ee\u9898\uff0c\u5982\u679c\u6587\u6863\u4e2d\u627e\u4e0d\u5230\u7b54\u6848\uff0c\u8bf7\u56de\u590d\u201c\u6211\u4e0d\u77e5\u9053\u201d\u3002\u6587\u6863\u5185\u5bb9\uff1a{'ids': [['id6', 'id0']], 'distances': [[1.5215294361114502, 1.578054666519165]], 'metadatas': [[None, None]], 'embeddings': None, 'documents': [[' \u4f8b\u5982\uff0c\u5982\u679c\u60a8\u6b63\u5728\u751f\u6210\u5ba2\u6237\u670d\u52a1\u56de\u590d\uff0c\u60a8\u53ef\u4ee5\u63d0\u4f9b\u4e00\u4e2a\u89d2\u8272\uff0c\u5982\u201c\u5ba2\u6237\u670d\u52a1\u4ee3\u8868\u201d', '\u5982\u4f55\u5411 ChatGPT \u63d0\u95ee\u4ee5\u83b7\u5f97\u9ad8\u8d28\u91cf\u7b54\u6848\uff1a\u63d0\u793a \u6280\u5de7\u5de5\u7a0b\u5b8c\u5168\u6307\u5357  \u4ecb\u7ecd  \u6211\u5f88\u9ad8\u5174\u6b22\u8fce\u60a8\u9605\u8bfb\u6211\u7684\u6700\u65b0\u4e66\u7c4d\u300aThe Art of Asking ChatGPT for High-Quality Answers: A complete   Guide to Prompt Engineering Techniques\u300b\u3002\u672c\u4e66\u662f\u4e00\u672c\u5168\u9762\u6307\u5357\uff0c\u4ecb\u7ecd\u4e86\u5404\u79cd\u63d0\u793a\u6280\u672f\uff0c\u7528\u4e8e\u4ece  ChatGPT\u4e2d\u751f\u6210\u9ad8\u8d28\u91cf\u7684\u7b54\u6848']], 'uris': None, 'data': None}"
+            },
+            {
+                "role": "assistant",
+                "name": "test",
+                "content": "\u6211\u4e0d\u77e5\u9053\u3002"
+            },
+            {
+                "role": "user",
+                "name": "user",
+                "content": "\u7528\u6237\u60f3\u77e5\u9053\u7684\u662f: hello, \u8bf7\u6839\u636e\u4ee5\u4e0b\u6587\u6863\u5185\u5bb9\u56de\u7b54\u4e0a\u8ff0\u95ee\u9898\uff0c\u5982\u679c\u6587\u6863\u4e2d\u627e\u4e0d\u5230\u7b54\u6848\uff0c\u8bf7\u56de\u590d\u201c\u6211\u4e0d\u77e5\u9053\u201d\u3002\u6587\u6863\u5185\u5bb9\uff1a{'ids': [['id6', 'id0']], 'distances': [[1.5214670896530151, 1.578031063079834]], 'metadatas': [[None, None]], 'embeddings': None, 'documents': [[' \u4f8b\u5982\uff0c\u5982\u679c\u60a8\u6b63\u5728\u751f\u6210\u5ba2\u6237\u670d\u52a1\u56de\u590d\uff0c\u60a8\u53ef\u4ee5\u63d0\u4f9b\u4e00\u4e2a\u89d2\u8272\uff0c\u5982\u201c\u5ba2\u6237\u670d\u52a1\u4ee3\u8868\u201d', '\u5982\u4f55\u5411 ChatGPT \u63d0\u95ee\u4ee5\u83b7\u5f97\u9ad8\u8d28\u91cf\u7b54\u6848\uff1a\u63d0\u793a \u6280\u5de7\u5de5\u7a0b\u5b8c\u5168\u6307\u5357  \u4ecb\u7ecd  \u6211\u5f88\u9ad8\u5174\u6b22\u8fce\u60a8\u9605\u8bfb\u6211\u7684\u6700\u65b0\u4e66\u7c4d\u300aThe Art of Asking ChatGPT for High-Quality Answers: A complete   Guide to Prompt Engineering Techniques\u300b\u3002\u672c\u4e66\u662f\u4e00\u672c\u5168\u9762\u6307\u5357\uff0c\u4ecb\u7ecd\u4e86\u5404\u79cd\u63d0\u793a\u6280\u672f\uff0c\u7528\u4e8e\u4ece  ChatGPT\u4e2d\u751f\u6210\u9ad8\u8d28\u91cf\u7684\u7b54\u6848']], 'uris': None, 'data': None}"
+            },
+            {
+                "role": "assistant",
+                "name": "test",
+                "content": "\u6211\u4e0d\u77e5\u9053\u3002"
+            },
+            {
+                "role": "user",
+                "name": "user",
+                "content": "\u7528\u6237\u60f3\u77e5\u9053\u7684\u662f: \u4ec0\u4e48\u662f\u89d2\u8272\u63d0\u793a\uff1f, \u8bf7\u6839\u636e\u4ee5\u4e0b\u6587\u6863\u5185\u5bb9\u56de\u7b54\u4e0a\u8ff0\u95ee\u9898\uff0c\u5982\u679c\u6587\u6863\u4e2d\u627e\u4e0d\u5230\u7b54\u6848\uff0c\u8bf7\u56de\u590d\u201c\u6211\u4e0d\u77e5\u9053\u201d\u3002\u6587\u6863\u5185\u5bb9\uff1a{'ids': [['id5', 'id4']], 'distances': [[0.7830025553703308, 0.8542736768722534]], 'metadatas': [[None, None]], 'embeddings': None, 'documents': [[' \u8981\u4f7f\u7528\u89d2\u8272\u63d0\u793a\u6280\u672f\uff0c\u60a8\u9700\u8981\u4e3a\u6a21\u578b\u63d0\u4f9b\u4e00\u4e2a\u6e05\u6670\u5177\u4f53\u7684\u89d2\u8272', '       \u7b2c\u4e09\u7ae0\uff1a\u89d2\u8272\u63d0\u793a  \u89d2\u8272\u63d0\u793a\u6280\u672f\u662f\u901a\u8fc7\u4e3aChatGPT\u6307\u5b9a\u4e00\u4e2a\u7279\u5b9a\u7684\u89d2\u8272\u6765\u5f15\u5bfc\u5176\u8f93\u51fa\u7684\u4e00\u79cd\u65b9\u5f0f\u3002\u8fd9\u79cd\u6280\u672f\u5bf9\u4e8e\u751f\u6210\u9488\u5bf9\u7279\u5b9a  \u4e0a\u4e0b\u6587\u6216\u53d7\u4f17\u7684\u6587\u672c\u975e\u5e38\u6709\u7528']], 'uris': None, 'data': None}"
+            }
+        ]
+    },
+    "response": {
+        "id": "chatcmpl-9PrYBvt4X49lB4yxe1psgqWrHPzvu",
+        "choices": [
+            {
+                "finish_reason": "stop",
+                "index": 0,
+                "logprobs": null,
+                "message": {
+                    "content": "\u89d2\u8272\u63d0\u793a\u6280\u672f\u662f\u901a\u8fc7\u4e3aChatGPT\u6307\u5b9a\u4e00\u4e2a\u7279\u5b9a\u7684\u89d2\u8272\u6765\u5f15\u5bfc\u5176\u8f93\u51fa\u7684\u4e00\u79cd\u65b9\u5f0f\u3002\u8fd9\u79cd\u6280\u672f\u5bf9\u4e8e\u751f\u6210\u9488\u5bf9\u7279\u5b9a\u4e0a\u4e0b\u6587\u6216\u53d7\u4f17\u7684\u6587\u672c\u975e\u5e38\u6709\u7528\u3002",
+                    "role": "assistant",
+                    "function_call": null,
+                    "tool_calls": null
+                }
+            }
+        ],
+        "created": 1715951075,
+        "model": "gpt-3.5-turbo-0125",
+        "object": "chat.completion",
+        "system_fingerprint": null,
+        "usage": {
+            "completion_tokens": 59,
+            "prompt_tokens": 815,
+            "total_tokens": 874
+        }
+    }
+}

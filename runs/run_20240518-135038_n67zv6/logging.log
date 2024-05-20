@@ -1,0 +1,13 @@
+2024-05-18 13:50:45.181 | INFO     | agentscope.models:read_model_configs:180 - Load configs for model wrapper: openai_cfg
+2024-05-18 13:50:45.209 | INFO     | agentscope.utils.monitor:_create_monitor_table:343 - Init [monitor_metrics] as the monitor table
+2024-05-18 13:50:45.211 | INFO     | agentscope.utils.monitor:_create_monitor_table:344 - Init [monitor_metrics_quota_exceeded] as the monitor trigger
+2024-05-18 13:50:45.212 | INFO     | agentscope.utils.monitor:__init__:313 - SqliteMonitor initialization completed at [./runs\run_20240518-135038_n67zv6\agentscope.db]
+2024-05-18 13:50:45.226 | WARNING  | agentscope.models:_get_model_wrapper:89 - Model type [openai] will be deprecated in future releases, please use [openai_chat] instead.
+2024-05-18 13:50:45.227 | INFO     | agentscope.models.model:__init__:204 - Initialize model [openai_cfg]
+2024-05-18 13:50:45.470 | INFO     | agentscope.utils.monitor:register_budget:556 - set budget None to gpt-3.5-turbo
+2024-05-18 13:50:45.484 | INFO     | agentscope.utils.monitor:register:364 - Register metric [gpt-3.5-turbo.cost] to SqliteMonitor with unit [dollor] and quota [None]
+2024-05-18 13:50:45.492 | INFO     | agentscope.utils.monitor:register:364 - Register metric [gpt-3.5-turbo.prompt_tokens] to SqliteMonitor with unit [token] and quota [None]
+2024-05-18 13:50:45.506 | INFO     | agentscope.utils.monitor:register:364 - Register metric [gpt-3.5-turbo.completion_tokens] to SqliteMonitor with unit [token] and quota [None]
+2024-05-18 13:50:45.520 | INFO     | agentscope.utils.monitor:register:364 - Register metric [gpt-3.5-turbo.call_counter] to SqliteMonitor with unit [times] and quota [None]
+2024-05-18 13:50:45.531 | INFO     | agentscope.utils.monitor:register:364 - Register metric [gpt-3.5-turbo.total_tokens] to SqliteMonitor with unit [token] and quota [None]
+myAgent: 角色提示是一种引导模型输出的技术，通过为ChatGPT指定一个具体的角色来指导其生成文本。这种技术对于生成针对特定上下文或受众的文本非常有用。具体来说，您需要为模型提供一个清晰、具体的角色，例如客户服务代表，来影响输出。

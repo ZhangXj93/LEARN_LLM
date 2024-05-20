@@ -1,0 +1,42 @@
+2024-05-17 19:54:40.537 | INFO     | agentscope.models:read_model_configs:180 - Load configs for model wrapper: openai_cfg
+2024-05-17 19:54:40.560 | INFO     | agentscope.utils.monitor:_create_monitor_table:343 - Init [monitor_metrics] as the monitor table
+2024-05-17 19:54:40.561 | INFO     | agentscope.utils.monitor:_create_monitor_table:344 - Init [monitor_metrics_quota_exceeded] as the monitor trigger
+2024-05-17 19:54:40.562 | INFO     | agentscope.utils.monitor:__init__:313 - SqliteMonitor initialization completed at [./runs\run_20240517-195435_425b0a\agentscope.db]
+2024-05-17 19:54:40.568 | WARNING  | agentscope.models:_get_model_wrapper:89 - Model type [openai] will be deprecated in future releases, please use [openai_chat] instead.
+2024-05-17 19:54:40.570 | INFO     | agentscope.models.model:__init__:204 - Initialize model [openai_cfg]
+2024-05-17 19:54:40.793 | INFO     | agentscope.utils.monitor:register_budget:556 - set budget None to gpt-3.5-turbo
+2024-05-17 19:54:40.806 | INFO     | agentscope.utils.monitor:register:364 - Register metric [gpt-3.5-turbo.cost] to SqliteMonitor with unit [dollor] and quota [None]
+2024-05-17 19:54:40.813 | INFO     | agentscope.utils.monitor:register:364 - Register metric [gpt-3.5-turbo.prompt_tokens] to SqliteMonitor with unit [token] and quota [None]
+2024-05-17 19:54:40.824 | INFO     | agentscope.utils.monitor:register:364 - Register metric [gpt-3.5-turbo.completion_tokens] to SqliteMonitor with unit [token] and quota [None]
+2024-05-17 19:54:40.836 | INFO     | agentscope.utils.monitor:register:364 - Register metric [gpt-3.5-turbo.call_counter] to SqliteMonitor with unit [times] and quota [None]
+2024-05-17 19:54:40.843 | INFO     | agentscope.utils.monitor:register:364 - Register metric [gpt-3.5-turbo.total_tokens] to SqliteMonitor with unit [token] and quota [None]
+2024-05-17 19:55:30.440 | WARNING  | agentscope.models:read_model_configs:173 - config_name [openai_cfg] already exists.
+2024-05-17 19:55:30.440 | WARNING  | agentscope.models:read_model_configs:173 - config_name [openai_cfg] already exists.
+2024-05-17 19:55:30.441 | INFO     | agentscope.models:read_model_configs:180 - Load configs for model wrapper: openai_cfg
+2024-05-17 19:55:30.441 | INFO     | agentscope.models:read_model_configs:180 - Load configs for model wrapper: openai_cfg
+2024-05-17 19:55:30.647 | WARNING  | agentscope.models:_get_model_wrapper:89 - Model type [openai] will be deprecated in future releases, please use [openai_chat] instead.
+2024-05-17 19:55:30.647 | WARNING  | agentscope.models:_get_model_wrapper:89 - Model type [openai] will be deprecated in future releases, please use [openai_chat] instead.
+2024-05-17 19:55:30.647 | INFO     | agentscope.models.model:__init__:204 - Initialize model [openai_cfg]
+2024-05-17 19:55:30.647 | INFO     | agentscope.models.model:__init__:204 - Initialize model [openai_cfg]
+2024-05-17 19:55:30.855 | INFO     | agentscope.utils.monitor:register_budget:556 - set budget None to gpt-3.5-turbo
+2024-05-17 19:55:30.855 | INFO     | agentscope.utils.monitor:register_budget:556 - set budget None to gpt-3.5-turbo
+test: 你好！有什么可以帮助你的吗？
+test: 你好！有什么可以帮助你的吗？
+2024-05-17 19:58:16.077 | WARNING  | agentscope.models:read_model_configs:173 - config_name [openai_cfg] already exists.
+2024-05-17 19:58:16.077 | WARNING  | agentscope.models:read_model_configs:173 - config_name [openai_cfg] already exists.
+2024-05-17 19:58:16.079 | INFO     | agentscope.models:read_model_configs:180 - Load configs for model wrapper: openai_cfg
+2024-05-17 19:58:16.079 | INFO     | agentscope.models:read_model_configs:180 - Load configs for model wrapper: openai_cfg
+2024-05-17 19:58:16.077 | WARNING  | agentscope.models:read_model_configs:173 - config_name [openai_cfg] already exists.
+2024-05-17 19:58:16.079 | INFO     | agentscope.models:read_model_configs:180 - Load configs for model wrapper: openai_cfg
+2024-05-17 19:58:16.086 | WARNING  | agentscope.models:_get_model_wrapper:89 - Model type [openai] will be deprecated in future releases, please use [openai_chat] instead.
+2024-05-17 19:58:16.086 | WARNING  | agentscope.models:_get_model_wrapper:89 - Model type [openai] will be deprecated in future releases, please use [openai_chat] instead.
+2024-05-17 19:58:16.086 | WARNING  | agentscope.models:_get_model_wrapper:89 - Model type [openai] will be deprecated in future releases, please use [openai_chat] instead.
+2024-05-17 19:58:16.088 | INFO     | agentscope.models.model:__init__:204 - Initialize model [openai_cfg]
+2024-05-17 19:58:16.088 | INFO     | agentscope.models.model:__init__:204 - Initialize model [openai_cfg]
+2024-05-17 19:58:16.088 | INFO     | agentscope.models.model:__init__:204 - Initialize model [openai_cfg]
+2024-05-17 19:58:16.317 | INFO     | agentscope.utils.monitor:register_budget:556 - set budget None to gpt-3.5-turbo
+2024-05-17 19:58:16.317 | INFO     | agentscope.utils.monitor:register_budget:556 - set budget None to gpt-3.5-turbo
+2024-05-17 19:58:16.317 | INFO     | agentscope.utils.monitor:register_budget:556 - set budget None to gpt-3.5-turbo
+test: 我是一个AI助手，专门为您提供信息和帮助。有什么问题我可以帮您解答呢？
+test: 我是一个AI助手，专门为您提供信息和帮助。有什么问题我可以帮您解答呢？
+test: 我是一个AI助手，专门为您提供信息和帮助。有什么问题我可以帮您解答呢？

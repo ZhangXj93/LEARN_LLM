@@ -1,0 +1,13 @@
+2024-05-18 14:39:14.367 | INFO     | agentscope.models:read_model_configs:180 - Load configs for model wrapper: openai_cfg
+2024-05-18 14:39:14.380 | INFO     | agentscope.utils.monitor:_create_monitor_table:343 - Init [monitor_metrics] as the monitor table
+2024-05-18 14:39:14.381 | INFO     | agentscope.utils.monitor:_create_monitor_table:344 - Init [monitor_metrics_quota_exceeded] as the monitor trigger
+2024-05-18 14:39:14.381 | INFO     | agentscope.utils.monitor:__init__:313 - SqliteMonitor initialization completed at [./runs\run_20240518-143909_8eux9g\agentscope.db]
+2024-05-18 14:39:14.390 | WARNING  | agentscope.models:_get_model_wrapper:89 - Model type [openai] will be deprecated in future releases, please use [openai_chat] instead.
+2024-05-18 14:39:14.391 | INFO     | agentscope.models.model:__init__:204 - Initialize model [openai_cfg]
+2024-05-18 14:39:14.636 | WARNING  | agentscope.models.openai_model:__init__:83 - fail to get max_length for gpt-4o: 'Model [gpt-4o] not found in OPENAI_MAX_LENGTH. The last updated date is 20231212'
+2024-05-18 14:39:14.637 | INFO     | agentscope.utils.monitor:register_budget:556 - set budget None to gpt-4o
+2024-05-18 14:39:14.638 | WARNING  | agentscope.utils.monitor:register_budget:586 - Calculate budgets for model [gpt-4o] is not supported
+2024-05-18 14:39:14.653 | INFO     | agentscope.utils.monitor:register:364 - Register metric [gpt-4o.call_counter] to SqliteMonitor with unit [times] and quota [None]
+2024-05-18 14:39:14.663 | INFO     | agentscope.utils.monitor:register:364 - Register metric [gpt-4o.prompt_tokens] to SqliteMonitor with unit [token] and quota [None]
+2024-05-18 14:39:14.671 | INFO     | agentscope.utils.monitor:register:364 - Register metric [gpt-4o.completion_tokens] to SqliteMonitor with unit [token] and quota [None]
+2024-05-18 14:39:14.679 | INFO     | agentscope.utils.monitor:register:364 - Register metric [gpt-4o.total_tokens] to SqliteMonitor with unit [token] and quota [None]

@@ -1,0 +1,44 @@
+{
+    "model_class": "OpenAIChatWrapper",
+    "timestamp": "20240517-195821",
+    "arguments": {
+        "model": "gpt-3.5-turbo",
+        "messages": [
+            {
+                "role": "system",
+                "name": "system",
+                "content": "You are a helpful ai assistant"
+            },
+            {
+                "role": "user",
+                "name": "user",
+                "content": "\u7528\u6237\u60f3\u77e5\u9053\u7684\u662f: \u4f60\u662f\u8c01"
+            }
+        ]
+    },
+    "response": {
+        "id": "chatcmpl-9PqW18zmVRthdIY9AXp2jMRXcL9pv",
+        "choices": [
+            {
+                "finish_reason": "stop",
+                "index": 0,
+                "logprobs": null,
+                "message": {
+                    "content": "\u6211\u662f\u4e00\u4e2aAI\u52a9\u624b\uff0c\u4e13\u95e8\u4e3a\u60a8\u63d0\u4f9b\u4fe1\u606f\u548c\u5e2e\u52a9\u3002\u6709\u4ec0\u4e48\u95ee\u9898\u6211\u53ef\u4ee5\u5e2e\u60a8\u89e3\u7b54\u5462\uff1f",
+                    "role": "assistant",
+                    "function_call": null,
+                    "tool_calls": null
+                }
+            }
+        ],
+        "created": 1715947097,
+        "model": "gpt-3.5-turbo-0125",
+        "object": "chat.completion",
+        "system_fingerprint": null,
+        "usage": {
+            "completion_tokens": 37,
+            "prompt_tokens": 33,
+            "total_tokens": 70
+        }
+    }
+}

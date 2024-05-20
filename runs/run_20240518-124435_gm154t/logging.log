@@ -1,0 +1,14 @@
+2024-05-18 12:44:46.947 | INFO     | agentscope.models:read_model_configs:180 - Load configs for model wrapper: openai_cfg
+2024-05-18 12:44:46.961 | INFO     | agentscope.utils.monitor:_create_monitor_table:343 - Init [monitor_metrics] as the monitor table
+2024-05-18 12:44:46.962 | INFO     | agentscope.utils.monitor:_create_monitor_table:344 - Init [monitor_metrics_quota_exceeded] as the monitor trigger
+2024-05-18 12:44:46.962 | INFO     | agentscope.utils.monitor:__init__:313 - SqliteMonitor initialization completed at [./runs\run_20240518-124435_gm154t\agentscope.db]
+2024-05-18 12:44:46.971 | WARNING  | agentscope.models:_get_model_wrapper:89 - Model type [openai] will be deprecated in future releases, please use [openai_chat] instead.
+2024-05-18 12:44:46.972 | INFO     | agentscope.models.model:__init__:204 - Initialize model [openai_cfg]
+2024-05-18 12:44:47.233 | WARNING  | agentscope.models.openai_model:__init__:83 - fail to get max_length for gpt-4o: 'Model [gpt-4o] not found in OPENAI_MAX_LENGTH. The last updated date is 20231212'
+2024-05-18 12:44:47.233 | INFO     | agentscope.utils.monitor:register_budget:556 - set budget None to gpt-4o
+2024-05-18 12:44:47.235 | WARNING  | agentscope.utils.monitor:register_budget:586 - Calculate budgets for model [gpt-4o] is not supported
+2024-05-18 12:44:47.249 | INFO     | agentscope.utils.monitor:register:364 - Register metric [gpt-4o.call_counter] to SqliteMonitor with unit [times] and quota [None]
+2024-05-18 12:44:47.260 | INFO     | agentscope.utils.monitor:register:364 - Register metric [gpt-4o.prompt_tokens] to SqliteMonitor with unit [token] and quota [None]
+2024-05-18 12:44:47.268 | INFO     | agentscope.utils.monitor:register:364 - Register metric [gpt-4o.completion_tokens] to SqliteMonitor with unit [token] and quota [None]
+2024-05-18 12:44:47.277 | INFO     | agentscope.utils.monitor:register:364 - Register metric [gpt-4o.total_tokens] to SqliteMonitor with unit [token] and quota [None]
+myAgent: 角色提示是一种通过为模型指定一个特定的角色来引导其输出的技术。这种技术可以帮助生成针对特定上下文或受众的文本。例如，如果将ChatGPT设定为市场代表，它就会从市场代表的角度生成内容，从而确保输出的文本符合预期的角色身份和观点。
