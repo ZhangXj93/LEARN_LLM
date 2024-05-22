@@ -1,3 +1,9 @@
+
+from llama_index.core import Document
+
+doc = Document(text="text")
+
+
 import os.path
 from llama_index.core import (
     VectorStoreIndex,

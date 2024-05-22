@@ -85,6 +85,7 @@ def user_query_with_image():
     """用户根据图片进行提问，输入为query和一张图片"""
     
     query = request.args.get('query')
+    query = request.form.get('query')
     
     if 'image' not in request.files:
         return jsonify({'error': 'No image part'}), 400
