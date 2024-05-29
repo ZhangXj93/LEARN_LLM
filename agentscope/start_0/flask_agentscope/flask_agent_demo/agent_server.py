@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 from agent_demo import DialogAgentWrapper
 from agent_demo_with_image import DialogAgentWithImageWrapper
+from tooluse_demo_reactagent import ToolDemo
 # from rag_demo import RAGDemo
 from rag_demo_with_langchain import RAGDemo
 import os
@@ -12,6 +13,7 @@ CURRENT_DIR = os.path.dirname(os.path.abspath(__file__)) # 获取当前文件的
 RAG_DEMO = RAGDemo(CURRENT_DIR + "/vector_db_path") # RAG 实例
 DIALOG_AGENT = DialogAgentWrapper(name="myAgent", rag_demo=RAG_DEMO) # agentscope agent实例
 DIALOG_AGENT_WITH_IMAGE = DialogAgentWithImageWrapper(name="myAgent2")
+TOOL_DEMO = ToolDemo()
 
 
 ####### 知识库文件上传准备工作 ########
@@ -118,6 +120,14 @@ def user_query_with_rag():
     query = request.args.get('query')
     result = DIALOG_AGENT.invoke(query, with_rag=True)
     return jsonify(result)
+
+@app.route('/user_query_with_tools', methods=['GET'])
+def user_query_with_tools():
+    print(request.args)
+    query = request.args.get('query')
+    result = TOOL_DEMO.invoke(query)
+    return jsonify(result)
+
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=8017, debug=False)
