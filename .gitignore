@@ -10,3 +10,8 @@ WeChat/my_test_file1.pdf
 WeChat/test.pdf
 runs
 LlamaIndex/vector_store
+LlamaIndex/data2/default__vector_store.json
+LlamaIndex/data2/docstore.json
+LlamaIndex/data2/graph_store.json
+LlamaIndex/data2/image__vector_store.json
+LlamaIndex/data2/index_store.json
